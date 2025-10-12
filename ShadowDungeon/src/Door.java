@@ -4,7 +4,7 @@ import bagel.util.Point;
 /**
  * Door which can be locked or unlocked, allows the player to move to the room it's connected to
  */
-public class Door {
+public class Door extends obstacle{
     private final Point position;
     private Image image;
     public final String toRoomName;

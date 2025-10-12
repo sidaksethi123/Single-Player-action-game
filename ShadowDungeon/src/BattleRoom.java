@@ -7,7 +7,7 @@ import java.util.Properties;
 /**
  * Room with doors that are locked until the plaer defeats all enemies
  */
-public class BattleRoom {
+public class BattleRoom extends Room{
     private Player player;
     private Door primaryDoor;
     private Door secondaryDoor;
@@ -15,8 +15,6 @@ public class BattleRoom {
     private ArrayList<TreasureBox> treasureBoxes;
     private ArrayList<Wall> walls;
     private ArrayList<River> rivers;
-    private boolean stopCurrentUpdateCall = false; // this determines whether to prematurely stop the update execution
-    private boolean isComplete = false;
     private final String nextRoomName;
     private final String roomName;
 
@@ -124,18 +122,8 @@ public class BattleRoom {
         }
     }
 
-    private boolean stopUpdatingEarlyIfNeeded() {
-        if (stopCurrentUpdateCall) {
-            player = null;
-            stopCurrentUpdateCall = false;
-            return true;
-        }
-        return false;
-    }
 
-    public void stopCurrentUpdateCall() {
-        stopCurrentUpdateCall = true;
-    }
+
 
     public void setPlayer(Player player) {
         this.player = player;
@@ -154,9 +142,6 @@ public class BattleRoom {
         secondaryDoor.unlock(false);
     }
 
-    public boolean isComplete() {
-        return isComplete;
-    }
 
     public void setComplete(boolean complete) {
         isComplete = complete;
@@ -169,4 +154,5 @@ public class BattleRoom {
     public boolean noMoreEnemies() {
         return keyBulletKin.isDead();
     }
+
 }

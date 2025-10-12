@@ -6,7 +6,7 @@ import java.util.Properties;
 /**
  * Main game class that manages initialising the rooms and moving the player between rooms
  */
-public class ShadowDungeon extends AbstractGame {
+public class   ShadowDungeon extends AbstractGame {
     public static Properties gameProps;
     public static Properties messageProps;
     public static double screenWidth;
