@@ -4,7 +4,7 @@ import bagel.util.Point;
 /**
  * Enemy that gets removed when the player overlaps with it
  */
-public class KeyBulletKin {
+public class KeyBulletKin extends enemy{
     private final Point position;
     private final Image image;
     private boolean active = false; // only true when the Battle Room has been activated

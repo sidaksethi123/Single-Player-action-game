@@ -7,13 +7,13 @@ import java.util.Properties;
 /**
  * Room where the game ends when the player either completes all rooms or dies
  */
-public class EndRoom {
+public class EndRoom extends Room{
     private Player player;
     private Door door;
     private RestartArea restartArea;
     private boolean isGameOver = false;
-    private boolean stopCurrentUpdateCall = false; // this determines whether to prematurely stop the update execution
 
+    @override
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
@@ -36,6 +36,7 @@ public class EndRoom {
         }
     }
 
+    @overide
     public void update(Input input) {
         UserInterface.drawEndMessage(!isGameOver);
 
@@ -60,21 +61,10 @@ public class EndRoom {
         }
     }
 
-    private boolean stopUpdatingEarlyIfNeeded() {
-        if (stopCurrentUpdateCall) {
-            player = null;
-            stopCurrentUpdateCall = false;
-            return true;
-        }
-        return false;
-    }
+
 
     public void setPlayer(Player player) {
         this.player = player;
-    }
-
-    public void stopCurrentUpdateCall() {
-        stopCurrentUpdateCall = true;
     }
 
     public Door findDoor() {
