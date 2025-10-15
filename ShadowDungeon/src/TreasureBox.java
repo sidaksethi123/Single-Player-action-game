@@ -6,7 +6,7 @@ import bagel.util.Point;
 /**
  * Chest that can be unlocked by the player to earn coins
  */
-public class TreasureBox {
+public class TreasureBox extends obstacle{
     private final Point position;
     private final Image image;
     private final double coinValue;

@@ -6,7 +6,9 @@ public class obstacle {
 
 
     public void update(Player player) {
-
     }
+
+
+
 
 }

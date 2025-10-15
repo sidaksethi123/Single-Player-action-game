@@ -4,7 +4,7 @@ import bagel.util.Point;
 /**
  * Obstacle that blocks the player from moving through it
  */
-public class Wall {
+public class Wall extends obstacle {
     private final Point position;
     private final Image image;
 

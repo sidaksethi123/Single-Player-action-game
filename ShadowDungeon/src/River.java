@@ -4,7 +4,7 @@ import bagel.util.Point;
 /**
  * Hazard that applies damage for as long as the player is on it
  */
-public class River{
+public class River extends obstacle{
     private final Point position;
     private final Image image;
     private final double damagePerFrame;

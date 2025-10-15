@@ -11,8 +11,8 @@ public class PrepRoom {
     private Player player;
     private Door door;
     private RestartArea restartArea;
-    private boolean stopCurrentUpdateCall = false; // this determines whether to prematurely stop the update execution
 
+    @override
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
@@ -35,6 +35,7 @@ public class PrepRoom {
         }
     }
 
+    @override
     public void update(Input input) {
         UserInterface.drawStartMessages();
 
@@ -59,22 +60,11 @@ public class PrepRoom {
         }
     }
 
-    private boolean stopUpdatingEarlyIfNeeded() {
-        if (stopCurrentUpdateCall) {
-            player = null;
-            stopCurrentUpdateCall = false;
-            return true;
-        }
-        return false;
-    }
 
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-    public void stopCurrentUpdateCall() {
-        stopCurrentUpdateCall = true;
-    }
 
     public Door findDoor() {
         return door;
