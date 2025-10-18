@@ -14,15 +14,14 @@ public abstract class Player {
     public double coins = 0;
     public boolean faceLeft = false;
 
-    //private final Image RIGHT_IMAGE;
-    //private final Image LEFT_IMAGE;
 
-    public Player(Point position) {
+    public Player(Point position, Image RIGHT_IMAGE) {
         this.position = position;
         this.currImage = RIGHT_IMAGE;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
     }
+
 
     public void update(Input input) {
         // check movement keys and mouse cursor
