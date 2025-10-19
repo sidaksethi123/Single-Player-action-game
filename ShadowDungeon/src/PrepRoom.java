@@ -70,9 +70,22 @@ public class PrepRoom extends Room{
         MARINE_IMAGE.draw(marinePos.x, marinePos.y);
 
         // door unlock mechanism
-        if (input.wasPressed(Keys.R) && !findDoor().isUnlocked()) {
-            findDoor().unlock(false);
+        if ((input.wasPressed(Keys.R) || input.wasPressed(Keys.M))) {
+
+            Point TempPosition = player.position;
+            if(input.wasPressed(Keys.R)){
+                player = new Robot(TempPosition);
+            }
+            else{
+                player = new Marine(TempPosition);
+            }
+            ShadowDungeon.setplayertype(player);
+
+            if (!findDoor().isUnlocked()) {
+                findDoor().unlock(false);
+            }
         }
+
     }
 
 

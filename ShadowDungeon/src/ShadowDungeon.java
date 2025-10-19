@@ -180,6 +180,10 @@ public class   ShadowDungeon extends AbstractGame {
         endRoom.setPlayer(player);
     }
 
+    public static void setplayertype(Player New){
+        player = New;
+    }
+
 
     public static Properties getGameProps() {
         return gameProps;

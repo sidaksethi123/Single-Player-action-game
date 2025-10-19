@@ -10,6 +10,7 @@ public class Marine extends Player {
     public Marine(Point position) {
 
         super(position, RIGHT_IMAGE);
+
     }
 
 

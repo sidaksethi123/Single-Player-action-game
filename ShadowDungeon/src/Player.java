@@ -5,7 +5,7 @@ import bagel.util.Rectangle;
 /**
  * Player character that can move around and between rooms, defeat enemies, collect coins
  */
-public abstract class Player {
+public class Player {
     public Point prevPosition;
     public Point position;
     public Image currImage;
@@ -13,7 +13,8 @@ public abstract class Player {
     public double speed;
     public double coins = 0;
     public boolean faceLeft = false;
-
+    private static final Image RIGHT_IMAGE = new Image("res/player_right.png");
+    private static final Image LEFT_IMAGE = new Image("res/player_left.png");
 
     public Player(Point position, Image RIGHT_IMAGE) {
         this.position = position;
