@@ -13,23 +13,26 @@ public class Player {
     public double speed;
     public double coins = 0;
     public boolean faceLeft = false;
-    private static final Image RIGHT_IMAGE = new Image("res/player_right.png");
-    private static final Image LEFT_IMAGE = new Image("res/player_left.png");
+    public Image rightImage;
+    public Image leftImage;
 
-    public Player(Point position, Image RIGHT_IMAGE) {
+    public Player(Point position, Image rightImage, Image leftImage) {
         this.position = position;
-        this.currImage = RIGHT_IMAGE;
+        this.currImage = rightImage;
+        this.rightImage = rightImage;
+        this.leftImage = leftImage;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
     }
 
     public Player(Point position) {
         this.position = position;
-        this.currImage = RIGHT_IMAGE;
+        this.rightImage = new Image("res/player_right.png");
+        this.leftImage = new Image("res/player_left.png");
+        this.currImage = this.rightImage;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
     }
-
 
 
     public void update(Input input) {
@@ -67,7 +70,7 @@ public class Player {
     }
 
     public void draw() {
-        currImage = faceLeft ? LEFT_IMAGE : RIGHT_IMAGE; // NOTE: this is an example of using the ternary operator
+        currImage = faceLeft ? leftImage : rightImage; // NOTE: this is an example of using the ternary operator
         currImage.draw(position.x, position.y);
         UserInterface.drawStats(health, coins);
     }
