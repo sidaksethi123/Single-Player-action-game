@@ -25,6 +25,7 @@ public class   ShadowDungeon extends AbstractGame {
     public static final String BATTLE_ROOM_B_NAME = "B";
     public static final String END_ROOM_NAME = "end";
 
+
     public ShadowDungeon(Properties gameProps, Properties messageProps) {
         super(Integer.parseInt(gameProps.getProperty("window.width")),
                 Integer.parseInt(gameProps.getProperty("window.height")),

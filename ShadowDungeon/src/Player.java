@@ -23,6 +23,14 @@ public class Player {
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
     }
 
+    public Player(Point position) {
+        this.position = position;
+        this.currImage = RIGHT_IMAGE;
+        this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
+        this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
+    }
+
+
 
     public void update(Input input) {
         // check movement keys and mouse cursor

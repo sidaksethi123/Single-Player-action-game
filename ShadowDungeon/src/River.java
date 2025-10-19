@@ -4,14 +4,14 @@ import bagel.util.Point;
 /**
  * Hazard that applies damage for as long as the player is on it
  */
-public class River extends obstacle{
-    private final Point position;
-    private final Image image;
+public class River extends Obstacle{
+
+
+    private static final Image riverImage = new Image("res/river.png");;
     private final double damagePerFrame;
 
     public River(Point position) {
-        this.position = position;
-        this.image = new Image("res/river.png");
+        super(position, riverImage);
         damagePerFrame = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("riverDamagePerFrame"));
     }
 

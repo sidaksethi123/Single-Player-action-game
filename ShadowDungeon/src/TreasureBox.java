@@ -6,16 +6,16 @@ import bagel.util.Point;
 /**
  * Chest that can be unlocked by the player to earn coins
  */
-public class TreasureBox extends obstacle{
-    private final Point position;
-    private final Image image;
+public class TreasureBox extends Obstacle{
+
+    private static final Image treasureImage = new Image("res/treasure_box.png");
     private final double coinValue;
     private boolean active = true;
 
     public TreasureBox(Point position, double coinValue) {
-        this.position = position;
+
+        super(position, treasureImage);
         this.coinValue = coinValue;
-        this.image = new Image("res/treasure_box.png");
     }
 
     public void update(Input input, Player player) {

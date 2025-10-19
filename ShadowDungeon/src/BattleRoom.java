@@ -1,5 +1,5 @@
 import bagel.Input;
-
+import bagel.util.Point;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
@@ -11,11 +11,12 @@ public class BattleRoom extends Room{
     private Door primaryDoor;
     private Door secondaryDoor;
     private KeyBulletKin keyBulletKin;
-    private BulletKin bulletKin;
-    private AshenBulletKin ashenBulletKin;
+    private ArrayList<Point> keyBKdirection;
     private ArrayList<TreasureBox> treasureBoxes;
     private ArrayList<Wall> walls;
     private ArrayList<River> rivers;
+    private ArrayList<BulletKin> BKs;
+    private ArrayList<AshenBulletKin> AshenBKs;
     private final String nextRoomName;
     private final String roomName;
 
@@ -54,13 +55,16 @@ public class BattleRoom extends Room{
                             secondaryDoor = new Door(IOUtils.parseCoords(propertyValue), coordinates[2], this);
                             break;
                         case "keyBulletKin":
-                            keyBulletKin = new KeyBulletKin(IOUtils.parseCoords(propertyValue), roomName);
+                            Point point = IOUtils.parseCoords(coords);
+                            keyBKdirection.add(point);
                             break;
                         case "ashenBulletKin":
-                            ashenBulletKin = new AshenBulletKin(IOUtils.parseCoords(propertyValue));
+                            AshenBulletKin ashenBulletKin = new AshenBulletKin(IOUtils.parseCoords(coords));
+                            AshenBKs.add(ashenBulletKin);
                             break;
                         case "bulletKin":
-                            bulletKin = new BulletKin(IOUtils.parseCoords(propertyValue));
+                            BulletKin bulletKin = new BulletKin(IOUtils.parseCoords(coords));
+                            BKs.add(bulletKin);
                             break;
                         case "wall":
                             Wall wall = new Wall(IOUtils.parseCoords(coords));
@@ -80,6 +84,7 @@ public class BattleRoom extends Room{
                 }
             }
         }
+        keyBulletKin = new KeyBulletKin(keyBKdirection.get(0), keyBKdirection);
     }
 
     public void update(Input input) {
@@ -96,20 +101,26 @@ public class BattleRoom extends Room{
             return;
         }
 
+
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
             keyBulletKin.draw();
         }
 
-        if (ashenBulletKin.isActive()) {
-            ashenBulletKin.update(player);
-            ashenBulletKin.draw();
+        for(AshenBulletKin enemy: AshenBKs){
+            if (enemy.isActive()){
+                enemy.update(player);
+                enemy.draw();
+            }
         }
 
-        if (bulletKin.isActive()) {
-            bulletKin.update(player);
-            bulletKin.draw();
+        for(BulletKin enemy: BKs){
+            if (enemy.isActive()){
+                enemy.update(player);
+                enemy.draw();
+            }
         }
+
 
         for (Wall wall: walls) {
             wall.update(player);

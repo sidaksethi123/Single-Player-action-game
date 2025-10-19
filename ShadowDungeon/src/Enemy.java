@@ -11,11 +11,15 @@ public class Enemy{
     public final Image image;
     public boolean active = false; // only true when the Battle Room has been activated
     public boolean dead = false;
+    public double health;
+    public double coinDrop;
 
 
-    public Enemy(Point startPos, Image image) {
+    public Enemy(Point startPos, Image image, double health, double coinDrop) {
         this.position = startPos;
         this.image = image;
+        this.health = health;
+        this.coinDrop = coinDrop;
     }
 
 
