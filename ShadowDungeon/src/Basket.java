@@ -6,21 +6,14 @@ import bagel.util.Point;
  */
 public class Basket extends Obstacle{
     private static final Image basketImage = new Image("res/basket.png");
+    private boolean Active = true;
 
     public Basket(Point position) {
         super(position, basketImage);
     }
 
-    @Override
-    public void update(Player player) {
-        System.out.println("hi");
-    }
 
-    public void draw() {
-        image.draw(position.x, position.y);
-    }
-
-    public boolean hasCollidedWith(Player player) {
-        return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
+    public boolean isActive(){
+        return Active;
     }
 }

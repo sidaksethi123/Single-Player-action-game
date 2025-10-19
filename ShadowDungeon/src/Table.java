@@ -6,21 +6,15 @@ import bagel.util.Point;
  */
 public class Table extends Obstacle{
     private static final Image tableImage = new Image("res/table.png");
+    private boolean Active = true;
 
     public Table(Point position) {
         super(position, tableImage);
     }
 
-    @Override
-    public void update(Player player) {
-        System.out.println("hi");
-    }
 
-    public void draw() {
-        image.draw(position.x, position.y);
-    }
 
-    public boolean hasCollidedWith(Player player) {
-        return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
+    public boolean isActive(){
+        return Active;
     }
 }

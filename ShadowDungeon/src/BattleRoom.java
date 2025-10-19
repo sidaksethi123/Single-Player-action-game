@@ -10,6 +10,8 @@ import java.util.Properties;
 public class BattleRoom extends Room{
     private Door primaryDoor;
     private Door secondaryDoor;
+    private Table table;
+    private Basket basket;
     private KeyBulletKin keyBulletKin;
     private ArrayList<Point> keyBKdirection;
     private ArrayList<TreasureBox> treasureBoxes;
@@ -82,6 +84,12 @@ public class BattleRoom extends Room{
                             River river = new River(IOUtils.parseCoords(coords));
                             rivers.add(river);
                             break;
+                        case "table":
+                            table = new Table(IOUtils.parseCoords(propertyValue));
+                            break;
+                        case "basket":
+                            basket = new Basket(IOUtils.parseCoords(propertyValue));
+                            break;
                         default:
                     }
                 }
@@ -140,6 +148,16 @@ public class BattleRoom extends Room{
                 treasureBox.update(input, player);
                 treasureBox.draw();
             }
+        }
+
+        if(table.isActive()){
+            table.update(player);
+            table.draw();
+        }
+
+        if(basket.isActive()){
+            basket.update(player);
+            basket.draw();
         }
 
         if (player != null) {

@@ -9,14 +9,15 @@ public class Weapon {
     private final String level;
     private final double damage;
     private static final Image image = new Image("res/bullet.png");
-    private boolean bulletisactive = false;
+    private double elapsedCounter = 0;
+
 
     ArrayList<Bullet> bullets = new ArrayList<>();
 
 
     public Weapon(String Level){
         this.level = Level;
-        this.damage = 30;
+        this.damage = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("weapon"+Level+"Damage"));
     }
 
     public void update(Input input, Player player){
@@ -24,7 +25,12 @@ public class Weapon {
             bullets.add(new Bullet(damage, player.getPosition(), input.getMousePosition()));
         }
 
+        for(Bullet bullet: bullets){
+            bullet.update();
+        }
 
+
+        elapsedCounter += 1;
     }
 
 

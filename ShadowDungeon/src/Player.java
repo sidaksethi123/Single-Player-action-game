@@ -15,6 +15,8 @@ public class Player {
     public boolean faceLeft = false;
     public Image rightImage;
     public Image leftImage;
+    private Weapon gun;
+
 
     public Player(Point position, Image rightImage, Image leftImage) {
         this.position = position;
@@ -23,6 +25,7 @@ public class Player {
         this.leftImage = leftImage;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
+        this.gun = new Weapon("Standard");
     }
 
     public Player(Point position) {
@@ -32,6 +35,7 @@ public class Player {
         this.currImage = this.rightImage;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
         this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
+        this.gun = null;
     }
 
 
@@ -61,6 +65,9 @@ public class Player {
         Point bottomRight = rect.bottomRight();
         if (topLeft.x >= 0 && bottomRight.x <= Window.getWidth() && topLeft.y >= 0 && bottomRight.y <= Window.getHeight()) {
             move(currX, currY);
+        }
+        if(this.gun != null) {
+            gun.update(input, this);
         }
     }
     
