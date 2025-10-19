@@ -6,7 +6,6 @@ import bagel.util.Point;
  */
 public class AshenBulletKin extends Enemy{
 
-
     private static final Image AshenBKimage= new Image("res/ashen_bullet_kin.png");
 
     public AshenBulletKin(Point startPos) {

@@ -5,7 +5,7 @@ import bagel.*;
 
 public abstract class Room {
     private boolean stopCurrentUpdateCall = false;
-    private boolean isComplete = false;
+    public boolean isComplete = false;
     public Player player;
 
 

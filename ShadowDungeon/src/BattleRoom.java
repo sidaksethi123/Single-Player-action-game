@@ -11,6 +11,8 @@ public class BattleRoom extends Room{
     private Door primaryDoor;
     private Door secondaryDoor;
     private KeyBulletKin keyBulletKin;
+    private BulletKin bulletKin;
+    private AshenBulletKin ashenBulletKin;
     private ArrayList<TreasureBox> treasureBoxes;
     private ArrayList<Wall> walls;
     private ArrayList<River> rivers;
@@ -52,7 +54,13 @@ public class BattleRoom extends Room{
                             secondaryDoor = new Door(IOUtils.parseCoords(propertyValue), coordinates[2], this);
                             break;
                         case "keyBulletKin":
-                            keyBulletKin = new KeyBulletKin(IOUtils.parseCoords(propertyValue));
+                            keyBulletKin = new KeyBulletKin(IOUtils.parseCoords(propertyValue), roomName);
+                            break;
+                        case "ashenBulletKin":
+                            ashenBulletKin = new AshenBulletKin(IOUtils.parseCoords(propertyValue));
+                            break;
+                        case "bulletKin":
+                            bulletKin = new BulletKin(IOUtils.parseCoords(propertyValue));
                             break;
                         case "wall":
                             Wall wall = new Wall(IOUtils.parseCoords(coords));
@@ -91,6 +99,16 @@ public class BattleRoom extends Room{
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
             keyBulletKin.draw();
+        }
+
+        if (ashenBulletKin.isActive()) {
+            ashenBulletKin.update(player);
+            ashenBulletKin.draw();
+        }
+
+        if (bulletKin.isActive()) {
+            bulletKin.update(player);
+            bulletKin.draw();
         }
 
         for (Wall wall: walls) {
@@ -151,7 +169,7 @@ public class BattleRoom extends Room{
     }
 
     public boolean noMoreEnemies() {
-        return keyBulletKin.isDead();
+        return (keyBulletKin.isDead() && bulletKin.isDead() && ashenBulletKin.isDead());
     }
 
 }
