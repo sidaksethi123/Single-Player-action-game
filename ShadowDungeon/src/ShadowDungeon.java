@@ -185,6 +185,10 @@ public class   ShadowDungeon extends AbstractGame {
         player = New;
     }
 
+    public static Point playerPos(){
+        return player.position;
+    }
+
 
     public static Properties getGameProps() {
         return gameProps;

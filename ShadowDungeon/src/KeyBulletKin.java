@@ -52,8 +52,8 @@ public class KeyBulletKin extends Enemy{
             return;
         }
 
-        currX += speed * unitX;
-        currY += speed * unitY;
+        currX += Math.sqrt(speed) * unitX;
+        currY += Math.sqrt(speed) * unitY;
 
         move(currX, currY);
     }

@@ -13,7 +13,7 @@ public class Enemy{
     public boolean dead = false;
     public double health;
     public double coinDrop;
-
+    public double FireBallFreq;
 
     public Enemy(Point startPos, Image image, double health, double coinDrop) {
         this.position = startPos;
