@@ -38,24 +38,24 @@ public class KeyBulletKin extends Enemy{
     }
 
     public void BattleRoomupdate(){
-        Point goal = 
-        double initDistance = position.distanceTo(directions.get(currStatus));
-        double unitX = (directions.get(currStatus).x-position.x)/ initDistance;
-        double unitY = (directions.get(currStatus).y-position.y)/ initDistance;
+        Point goal = directions.get(currStatus);
+        double distance = position.distanceTo(goal);
+        double unitX = (goal.x-position.x)/ distance;
+        double unitY = (goal.y-position.y)/ distance;
 
         double currX = position.x;
         double currY = position.y;
 
-        currX += Math.sqrt(speed) * unitX;
-        currY += Math.sqrt(speed) * unitY;
+        if (distance < speed){
+            position = goal;
+            currStatus= (currStatus + 1) % directions.size();
+            return;
+        }
+
+        currX += speed * unitX;
+        currY += speed * unitY;
 
         move(currX, currY);
-        if (currStatus == 4){
-            currStatus = 0;
-        }
-        else{
-            currStatus += 1;
-        }
     }
 
 
