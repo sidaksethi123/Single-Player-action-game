@@ -4,13 +4,13 @@ import bagel.util.Point;
 /**
  * Obstacle that blocks the player from moving through it
  */
-public class Wall extends obstacle {
-    private final Point position;
-    private final Image image;
+public class Wall extends Obstacle {
+
+
+    private static final Image wallPhoto = new Image("res/wall.png");
 
     public Wall(Point position) {
-        this.position = position;
-        this.image = new Image("res/wall.png");
+        super(position, wallPhoto);
     }
 
     public void update(Player player) {

@@ -8,7 +8,7 @@ public class Fireball {
     private final double damage = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("fireballDamage"));
     private final double fireballSpeed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("fireballSpeed"));
     private final double fireballFreq;
-    private static final Image image = new Image("res/bullet.png");
+    private static final Image image = new Image("res/fireball.png");
     private final double unitX;
     private final double unitY;
     private Point position;

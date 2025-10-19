@@ -7,7 +7,7 @@ import bagel.util.Point;
 public class Enemy{
 
 
-    public final Point position;
+    public Point position;
     public final Image image;
     public boolean active = false; // only true when the Battle Room has been activated
     public boolean dead = false;
