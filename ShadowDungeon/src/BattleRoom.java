@@ -8,7 +8,6 @@ import java.util.Properties;
  * Room with doors that are locked until the plaer defeats all enemies
  */
 public class BattleRoom extends Room{
-    private Player player;
     private Door primaryDoor;
     private Door secondaryDoor;
     private KeyBulletKin keyBulletKin;

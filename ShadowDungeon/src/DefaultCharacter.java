@@ -1,5 +1,5 @@
 import bagel.util.Point;
-
+import bagel.Image;
 
 public class DefaultCharacter extends Player {
 
@@ -8,7 +8,9 @@ public class DefaultCharacter extends Player {
 
 
     public DefaultCharacter(Point position) {
-        super(position);
+        super(position, RIGHT_IMAGE);
+
+
     }
 
 

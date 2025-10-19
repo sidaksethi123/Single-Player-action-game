@@ -8,12 +8,11 @@ import java.util.Properties;
  * Room where the game ends when the player either completes all rooms or dies
  */
 public class EndRoom extends Room{
-    private Player player;
     private Door door;
     private RestartArea restartArea;
     private boolean isGameOver = false;
 
-    @override
+
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {

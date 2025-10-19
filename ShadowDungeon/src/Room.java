@@ -1,10 +1,12 @@
 import java.util.Map;
 import java.util.Properties;
+import bagel.*;
+
 
 public abstract class Room {
     private boolean stopCurrentUpdateCall = false;
     private boolean isComplete = false;
-
+    public Player player;
 
 
 
@@ -14,7 +16,7 @@ public abstract class Room {
     public void update(Input input){
     }
 
-    private boolean stopUpdatingEarlyIfNeeded() {
+    public boolean stopUpdatingEarlyIfNeeded() {
         if (stopCurrentUpdateCall) {
             player = null;
             stopCurrentUpdateCall = false;

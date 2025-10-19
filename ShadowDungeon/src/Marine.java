@@ -1,5 +1,5 @@
 import bagel.util.Point;
-
+import bagel.Image;
 
 public class Marine extends Player {
 
@@ -8,7 +8,8 @@ public class Marine extends Player {
 
 
     public Marine(Point position) {
-        super(position);
+
+        super(position, RIGHT_IMAGE);
     }
 
 

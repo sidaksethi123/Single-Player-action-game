@@ -11,12 +11,16 @@ public class KeyBulletKin extends Enemy{
 
     private static final Point[] directionsBroomA = new Point[5];
     private static final Point[] directionsBroomB = new Point[3];
+    private final char CurrBattleRoom;
+
 
     private int currStatus = 0;
     private double speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("keyBulletKinSpeed"));
 
-    public KeyBulletKin(Point startPos) {
+
+    public KeyBulletKin(Point startPos, char Room) {
         super(startPos, KeyBKimage);
+        this.CurrBattleRoom = Room;
     }
 
     @Override
@@ -28,9 +32,12 @@ public class KeyBulletKin extends Enemy{
         }
 
          if (!active){
-             double currX = position.x;
-             double currY = position.y;
-
+            if (CurrBattleRoom == 'A'){
+                BattleRoomAupdate();
+            }
+            else{
+                BattleRoomBupdate();
+            }
 
          }
     }
@@ -78,12 +85,6 @@ public class KeyBulletKin extends Enemy{
 
     public void move(double x, double y) {
         position = new Point(x, y);
-
-    }
-
-
-    public void draw(){
-
 
     }
 

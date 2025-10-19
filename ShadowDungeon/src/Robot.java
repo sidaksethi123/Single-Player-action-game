@@ -1,5 +1,5 @@
 import bagel.util.Point;
-
+import bagel.Image;
 
 public class Robot extends Player {
 
@@ -8,7 +8,7 @@ public class Robot extends Player {
 
 
     public Robot(Point position) {
-        super(position);
+        super(position, RIGHT_IMAGE);
     }
 
 

@@ -1,5 +1,7 @@
 import bagel.Input;
 import bagel.Keys;
+import bagel.Image;
+import bagel.util.Point;
 
 import java.util.Map;
 import java.util.Properties;
@@ -7,14 +9,22 @@ import java.util.Properties;
 /**
  * Room where the game starts
  */
-public class PrepRoom {
+public class PrepRoom extends Room{
     private Player player;
     private Door door;
     private RestartArea restartArea;
 
-    @override
+    private static final Image ROBOT_IMAGE = new Image("res/robot_sprite.png");
+    private static final Image MARINE_IMAGE = new Image("res/marine_sprite.png");
+    private static Point robotPos;
+    private static Point marinePos;
+
+
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
+        robotPos = IOUtils.parseCoords(gameProperties.getProperty("Robot"));
+        marinePos = IOUtils.parseCoords(gameProperties.getProperty("Marine"));
+
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
             String roomSuffix = String.format(".%s", ShadowDungeon.PREP_ROOM_NAME);
             if (entry.getKey().toString().contains(roomSuffix)) {
@@ -35,7 +45,7 @@ public class PrepRoom {
         }
     }
 
-    @override
+
     public void update(Input input) {
         UserInterface.drawStartMessages();
 
@@ -49,10 +59,15 @@ public class PrepRoom {
         restartArea.update(input, player);
         restartArea.draw();
 
+
         if (player != null) {
             player.update(input);
             player.draw();
         }
+
+
+        ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
+        MARINE_IMAGE.draw(marinePos.x, marinePos.y);
 
         // door unlock mechanism
         if (input.wasPressed(Keys.R) && !findDoor().isUnlocked()) {
