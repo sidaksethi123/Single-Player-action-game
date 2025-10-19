@@ -27,7 +27,7 @@ public class Bullet {
     public void update(Input input){
         double currX = position.x;
         double currY = position.y;
-        
+
         currX += Math.sqrt(BulletSpeed)* unitX;
         currY += Math.sqrt(BulletSpeed)* unitY;
 

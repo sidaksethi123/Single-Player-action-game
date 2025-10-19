@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 public class Weapon {
 
+    private final String level;
     private final double damage;
     private static final Image image = new Image("res/bullet.png");
     private boolean bulletisactive = false;
@@ -13,9 +14,9 @@ public class Weapon {
     ArrayList<Bullet> bullets = new ArrayList<>();
 
 
-    public Weapon(){
+    public Weapon(String Level){
+        this.level = Level;
         this.damage = 30;
-        this.position = position;
     }
 
     public void update(Input input, Player player){
