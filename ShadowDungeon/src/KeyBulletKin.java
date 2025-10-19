@@ -32,7 +32,7 @@ public class KeyBulletKin extends Enemy{
             active = false;
         }
 
-         if (!active){
+         if (active){
              BattleRoomupdate();
          }
     }

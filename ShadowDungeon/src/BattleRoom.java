@@ -21,6 +21,9 @@ public class BattleRoom extends Room{
     private final String roomName;
 
     public BattleRoom(String roomName, String nextRoomName) {
+        keyBKdirection = new ArrayList<>();
+        BKs = new ArrayList<>();
+        AshenBKs = new ArrayList<>();
         walls = new ArrayList<>();
         rivers = new ArrayList<>();
         treasureBoxes = new ArrayList<>();
@@ -102,11 +105,6 @@ public class BattleRoom extends Room{
         }
 
 
-        if (keyBulletKin.isActive()) {
-            keyBulletKin.update(player);
-            keyBulletKin.draw();
-        }
-
         for(AshenBulletKin enemy: AshenBKs){
             if (enemy.isActive()){
                 enemy.update(player);
@@ -121,15 +119,20 @@ public class BattleRoom extends Room{
             }
         }
 
-
         for (Wall wall: walls) {
             wall.update(player);
             wall.draw();
         }
 
+
         for (River river: rivers) {
             river.update(player);
             river.draw();
+        }
+
+        if (keyBulletKin.isActive()) {
+            keyBulletKin.update(player);
+            keyBulletKin.draw();
         }
 
         for (TreasureBox treasureBox: treasureBoxes) {
@@ -177,10 +180,36 @@ public class BattleRoom extends Room{
 
     public void activateEnemies() {
         keyBulletKin.setActive(true);
+
+        for(BulletKin enemy: BKs){
+            enemy.setActive(true);
+        }
+
+        for(AshenBulletKin enemy: AshenBKs){
+            enemy.setActive(true);
+        }
     }
 
     public boolean noMoreEnemies() {
-        return (keyBulletKin.isDead() && bulletKin.isDead() && ashenBulletKin.isDead());
+        return (keyBulletKin.isDead() && nomorebulletkin() && nomoreashebulletkin());
+    }
+
+    public boolean nomorebulletkin(){
+        for(BulletKin enemy: BKs){
+            if (!enemy.isDead()){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean nomoreashebulletkin(){
+        for(AshenBulletKin enemy: AshenBKs){
+            if (!enemy.isDead()){
+                return false;
+            }
+        }
+        return true;
     }
 
 }
