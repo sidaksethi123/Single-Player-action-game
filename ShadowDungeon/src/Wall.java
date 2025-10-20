@@ -6,11 +6,14 @@ import bagel.util.Point;
  */
 public class Wall extends Obstacle {
 
+
     private static final Image wallPhoto = new Image("res/wall.png");
+
 
     public Wall(Point position) {
         super(position, wallPhoto);
     }
+
 
 
 }

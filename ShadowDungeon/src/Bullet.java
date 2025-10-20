@@ -8,7 +8,6 @@ public class Bullet extends Projectile {
     private final double Speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("bulletSpeed"));
     private final double BulletFreq = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("bulletFreq"));
     private static final Image bulletImage = new Image("res/bullet.png");
-    private boolean isActive = true;
 
     public Bullet(double damage, Point position, Point direction){
         super(damage,position,direction,bulletImage);

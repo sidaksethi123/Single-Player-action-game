@@ -15,7 +15,21 @@ public class Fireball extends Projectile{
         double initDistance = position.distanceTo(direction);
     }
 
+    public void update(){
+        if (playercollision()){
+            if (isActive) {
+                ShadowDungeon.player.health -= 40;
+                isActive = false;
+            }
+        }
+        projection();
 
+    }
+
+    public boolean playercollision(){
+        return fireImage.getBoundingBoxAt(position).intersects
+                (ShadowDungeon.player.currImage.getBoundingBoxAt(ShadowDungeon.player.position));
+    }
 
 
 }

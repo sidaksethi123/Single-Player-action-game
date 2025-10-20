@@ -10,7 +10,7 @@ public class Projectile {
     public final double unitX;
     public final double unitY;
     public Point position;
-    private boolean isActive = true;
+    public boolean isActive = true;
     public Image image;
 
 
@@ -23,12 +23,18 @@ public class Projectile {
         this.image = image;
     }
 
+
     public void update(){
+        projection();
+    }
+
+    public void projection(){
         double currX = position.x;
         double currY = position.y;
 
         currX += Math.sqrt(Speed)* unitX;
         currY += Math.sqrt(Speed)* unitY;
+
 
 
         if (isActive){

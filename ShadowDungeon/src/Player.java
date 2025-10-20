@@ -15,7 +15,7 @@ public class Player {
     public boolean faceLeft = false;
     public Image rightImage;
     public Image leftImage;
-    private Weapon gun;
+    public Weapon gun;
 
 
     public Player(Point position, Image rightImage, Image leftImage) {

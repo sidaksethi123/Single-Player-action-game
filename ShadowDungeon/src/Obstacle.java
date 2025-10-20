@@ -3,8 +3,11 @@ import bagel.util.Point;
 
 
 public class Obstacle {
+
     public final Point position;
     public final Image image;
+    private static final Image fireImage = new Image("res/fireball.png");
+    private static final Image bulletImage = new Image("res/bullet.png");
 
 
     public Obstacle(Point position, Image image) {
@@ -27,5 +30,15 @@ public class Obstacle {
 
     public void draw() {
         image.draw(position.x, position.y);
+    }
+
+    public boolean bulletcollision(Projectile bullet){
+        return image.getBoundingBoxAt(position).intersects
+                (bulletImage.getBoundingBoxAt(bullet.position));
+    }
+
+    public boolean fireballcollision(Projectile bullet){
+        return image.getBoundingBoxAt(position).intersects
+                (fireImage.getBoundingBoxAt(bullet.position));
     }
 }

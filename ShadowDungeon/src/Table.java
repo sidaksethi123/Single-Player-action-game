@@ -6,7 +6,7 @@ import bagel.util.Point;
  */
 public class Table extends Obstacle{
     private static final Image tableImage = new Image("res/table.png");
-    private boolean Active = true;
+    public boolean Active = true;
 
     public Table(Point position) {
         super(position, tableImage);

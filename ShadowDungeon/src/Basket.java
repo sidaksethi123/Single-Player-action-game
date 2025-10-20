@@ -6,7 +6,7 @@ import bagel.util.Point;
  */
 public class Basket extends Obstacle{
     private static final Image basketImage = new Image("res/basket.png");
-    private boolean Active = true;
+    public boolean Active = true;
 
     public Basket(Point position) {
         super(position, basketImage);

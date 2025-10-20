@@ -130,6 +130,23 @@ public class BattleRoom extends Room{
         for (Wall wall: walls) {
             wall.update(player);
             wall.draw();
+            for (Projectile projectile: player.gun.bullets){
+                if (wall.bulletcollision(projectile)){
+                    projectile.isActive = false;
+                }
+            }
+            for (AshenBulletKin enemy: AshenBKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (wall.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                }
+            }
+            for (BulletKin enemy: BKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (wall.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                    }
+            }
         }
 
 
@@ -153,11 +170,53 @@ public class BattleRoom extends Room{
         if(table.isActive()){
             table.update(player);
             table.draw();
+
+            for (Projectile projectile: player.gun.bullets){
+                if (table.bulletcollision(projectile)){
+                    projectile.isActive = false;
+                    table.Active = false;
+                }
+            }
+            for (AshenBulletKin enemy: AshenBKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (table.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                        table.Active = false;
+                    }
+            }
+            for (BulletKin enemy: BKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (table.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                        table.Active = false;
+                    }
+            }
+
         }
 
         if(basket.isActive()){
             basket.update(player);
             basket.draw();
+            for (Projectile projectile: player.gun.bullets){
+                if (basket.bulletcollision(projectile)){
+                    projectile.isActive = false;
+                    basket.Active = false;
+                }
+            }
+            for (AshenBulletKin enemy: AshenBKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (basket.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                        basket.Active = false;
+                    }
+            }
+            for (BulletKin enemy: BKs){
+                for(Projectile projectile: enemy.fireBalls)
+                    if (basket.fireballcollision(projectile)){
+                        projectile.isActive = false;
+                        basket.Active = false;
+                    }
+            }
         }
 
         if (player != null) {
@@ -209,7 +268,7 @@ public class BattleRoom extends Room{
     }
 
     public boolean noMoreEnemies() {
-        return (keyBulletKin.isDead() && nomorebulletkin() && nomoreashebulletkin());
+        return (keyBulletKin.isDead() && nomorebulletkin() && nomoreashenbulletkin());
     }
 
     public boolean nomorebulletkin(){
@@ -221,7 +280,7 @@ public class BattleRoom extends Room{
         return true;
     }
 
-    public boolean nomoreashebulletkin(){
+    public boolean nomoreashenbulletkin(){
         for(AshenBulletKin enemy: AshenBKs){
             if (!enemy.isDead()){
                 return false;
@@ -229,5 +288,6 @@ public class BattleRoom extends Room{
         }
         return true;
     }
+
 
 }

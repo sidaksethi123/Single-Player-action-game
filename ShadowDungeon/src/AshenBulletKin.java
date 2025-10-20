@@ -12,7 +12,7 @@ public class AshenBulletKin extends Enemy{
 
 
     private int elapsedCounter = 0;
-    private ArrayList<Fireball> fireBalls;
+    public ArrayList<Fireball> fireBalls;
 
     public AshenBulletKin(Point startPos) {
         super(startPos, AshenBKimage,
