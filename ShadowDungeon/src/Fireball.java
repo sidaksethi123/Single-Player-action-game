@@ -18,7 +18,7 @@ public class Fireball extends Projectile{
     public void update(){
         if (playercollision()){
             if (isActive) {
-                ShadowDungeon.player.health -= 40;
+                ShadowDungeon.player.receiveDamage(40);
                 isActive = false;
             }
         }

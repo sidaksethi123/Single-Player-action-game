@@ -35,7 +35,6 @@ public class Store {
 
         if (input.wasPressed(Keys.SPACE)) {
             Curr.storeflag = 0;
-            return;
         }
     }
 

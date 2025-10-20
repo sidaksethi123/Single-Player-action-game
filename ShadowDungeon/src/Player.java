@@ -80,7 +80,7 @@ public class Player {
     public void draw() {
         currImage = faceLeft ? leftImage : rightImage; // NOTE: this is an example of using the ternary operator
         currImage.draw(position.x, position.y);
-        UserInterface.drawStats(health, coins, keyCount);
+        UserInterface.drawStats(health, coins, keyCount, level);
     }
 
     public void earnCoins(double coins) {

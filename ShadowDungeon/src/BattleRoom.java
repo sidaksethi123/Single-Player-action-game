@@ -104,16 +104,18 @@ public class BattleRoom extends Room{
 
     public void update(Input input) {
         // update and draw all active game objects in this room
+
+
+        if (storeflag == 1){
+            storefunc(this, input);
+            return;
+        }
+
+
         if (input.wasPressed(Keys.SPACE)){
             storeflag = 1;
             return;
         }
-
-        if (storeflag == 1){
-            storefunc(this);
-            return;
-        }
-
 
 
         primaryDoor.update(player);
@@ -349,7 +351,7 @@ public class BattleRoom extends Room{
     }
 
 
-    private void storefunc(BattleRoom curr){
+    private void storefunc(BattleRoom curr, Input input){
         if(basket.isActive()) {
             basket.update(player);
             basket.draw();
@@ -362,7 +364,7 @@ public class BattleRoom extends Room{
             river.update(player);
             river.draw();
         }
-        storerun.update();
+        storerun.update(input, player, this);
         storerun.draw();
 
     }

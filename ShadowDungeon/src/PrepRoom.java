@@ -18,12 +18,15 @@ public class PrepRoom extends Room{
     private static final Image MARINE_IMAGE = new Image("res/marine_sprite.png");
     private static Point robotPos;
     private static Point marinePos;
-    Font prompt = new Font("res/wheaton.otf", 24);
+    private static Point robotMsg;
+    private static Point marineMsg;
 
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         robotPos = IOUtils.parseCoords(gameProperties.getProperty("Robot"));
         marinePos = IOUtils.parseCoords(gameProperties.getProperty("Marine"));
+        robotMsg = IOUtils.parseCoords(gameProperties.getProperty("robotMessage"));
+        marineMsg = IOUtils.parseCoords(gameProperties.getProperty("marineMessage"));
 
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
             String roomSuffix = String.format(".%s", ShadowDungeon.PREP_ROOM_NAME);
@@ -48,7 +51,13 @@ public class PrepRoom extends Room{
 
     public void update(Input input) {
         UserInterface.drawStartMessages();
+        ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
+        MARINE_IMAGE.draw(marinePos.x, marinePos.y);
 
+        UserInterface.drawData("Marine: No injury in rivers", 20, marineMsg);
+        UserInterface.drawData("Robot: +5$ per kill", 20, robotMsg);
+
+        UserInterface.drawTextCentered("selectMessage", 24, 509);
         // update and draw all game objects in this room
         door.update(player);
         door.draw();
@@ -66,11 +75,6 @@ public class PrepRoom extends Room{
         }
 
 
-        ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
-        MARINE_IMAGE.draw(marinePos.x, marinePos.y);
-
-        prompt.drawString("Marine: No injury in rivers", 30, robotPos.y);
-        prompt.drawString("Robot: +5$ per kill", 685, robotPos.y);
 
         // door unlock mechanism
         if ((input.wasPressed(Keys.R) || input.wasPressed(Keys.M))) {
