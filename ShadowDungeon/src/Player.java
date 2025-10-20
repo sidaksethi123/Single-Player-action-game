@@ -18,15 +18,26 @@ public class Player {
     public Weapon gun;
     public int level = 0;
     public double keyCount = 0;
+    String[] weaponType = {"Standard","Advance", "Elite"};
 
-    public Player(Point position, Image rightImage, Image leftImage) {
-        this.position = position;
+    public Player(Image rightImage, Image leftImage, Player tempplayer) {
+        this.position = tempplayer.position;
         this.currImage = rightImage;
         this.rightImage = rightImage;
         this.leftImage = leftImage;
         this.speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("movingSpeed"));
-        this.health = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("initialHealth"));
-        this.gun = new Weapon("Standard");
+        this.health = tempplayer.health;
+        if (tempplayer.gun == null){
+            this.level = 0;
+            this.gun = new Weapon(weaponType[0]);
+
+        }
+        else{
+            this.level = tempplayer.level;
+            this.gun = new Weapon(weaponType[this.level]);
+        }
+        this.keyCount = tempplayer.keyCount;
+        this.coins = tempplayer.coins;
     }
 
     public Player(Point position) {

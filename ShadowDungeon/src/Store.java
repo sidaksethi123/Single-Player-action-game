@@ -28,7 +28,7 @@ public class Store {
                 player.gun = new Weapon("Advance");
                 player.level = 1;
             } else if (player.level == 1) {
-                player.gun = new Weapon("Advance");
+                player.gun = new Weapon("Elite");
                 player.level = 2;
             }
         }

@@ -79,12 +79,11 @@ public class PrepRoom extends Room{
         // door unlock mechanism
         if ((input.wasPressed(Keys.R) || input.wasPressed(Keys.M))) {
 
-            Point TempPosition = player.position;
             if(input.wasPressed(Keys.R)){
-                player = new Robot(TempPosition);
+                player = new Robot(player);
             }
             else{
-                player = new Marine(TempPosition);
+                player = new Marine(player);
             }
             ShadowDungeon.setplayertype(player);
 
