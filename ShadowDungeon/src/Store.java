@@ -20,16 +20,20 @@ public class Store {
             ShadowDungeon.resetGameState(ShadowDungeon.getGameProps());
         }
         if (input.wasPressed(Keys.E)) {
-            ShadowDungeon.player.coins -= 50;
-            ShadowDungeon.player.health += 50;
+            if (player.coins >= 50) {
+                player.coins -= 50;
+                player.health += 50;
+            }
         }
-        if (input.wasPressed(Keys.L)) {
+        if (input.wasPressed(Keys.L) && player.coins >= 50) {
             if (player.level == 0) {
                 player.gun = new Weapon("Advance");
                 player.level = 1;
+                player.coins -= 50;
             } else if (player.level == 1) {
                 player.gun = new Weapon("Elite");
                 player.level = 2;
+                player.coins -= 50;
             }
         }
 

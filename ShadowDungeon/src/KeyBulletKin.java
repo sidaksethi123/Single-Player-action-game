@@ -10,13 +10,9 @@ public class KeyBulletKin extends Enemy{
 
 
     private static final Image KeyBKimage= new Image("res/key_bullet_kin.png");
-    ArrayList<Point> directions;
-
-
-
     private int currStatus = 0;
-    private double speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("keyBulletKinSpeed"));
-
+    private final double speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("keyBulletKinSpeed"));
+    private ArrayList<Point> directions;
 
     public KeyBulletKin(Point startPos, ArrayList<Point> directions) {
         super(startPos, KeyBKimage,

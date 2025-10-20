@@ -17,7 +17,7 @@ public class   ShadowDungeon extends AbstractGame {
     private static BattleRoom battleRoomA;
     private static BattleRoom battleRoomB;
     private static EndRoom endRoom;
-    public static Player player;
+    private static Player player;
     private final Image background;
     
     public static final String PREP_ROOM_NAME = "prep";

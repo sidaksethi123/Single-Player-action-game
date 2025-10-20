@@ -4,9 +4,7 @@ import bagel.util.Point;
 /**
  * Door which can be locked or unlocked, allows the player to move to the room it's connected to
  */
-public class Door{
-    private final Point position;
-    private Image image;
+public class Door extends Obstacle{
     public final String toRoomName;
     public BattleRoom battleRoom; // only set if this door is inside a Battle Room
     private boolean unlocked = false;
@@ -17,14 +15,12 @@ public class Door{
     private static final Image UNLOCKED = new Image("res/unlocked_door.png");
 
     public Door(Point position, String toRoomName) {
-        this.position = position;
-        this.image = LOCKED;
+        super(position, LOCKED);
         this.toRoomName = toRoomName;
     }
 
     public Door(Point position, String toRoomName, BattleRoom battleRoom) {
-        this.position = position;
-        this.image = LOCKED;
+        super(position, LOCKED);
         this.toRoomName = toRoomName;
         this.battleRoom = battleRoom;
     }

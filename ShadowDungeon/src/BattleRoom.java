@@ -104,7 +104,7 @@ public class BattleRoom extends Room{
 
     public void update(Input input) {
         // update and draw all active game objects in this room
-        
+
         if (storeflag == 1){
             storefunc(this, input);
             return;
@@ -130,6 +130,16 @@ public class BattleRoom extends Room{
         }
 
 
+        if (!primaryDoor.isUnlocked()){
+            bulletObstacleCollision(primaryDoor);
+            EnemyFireballCollision(primaryDoor);
+        }
+
+        if (!secondaryDoor.isUnlocked()){
+            bulletObstacleCollision(secondaryDoor);
+            EnemyFireballCollision(secondaryDoor);
+        }
+
         for (Wall wall: walls) {
             wall.update(player);
             wall.draw();
@@ -147,18 +157,7 @@ public class BattleRoom extends Room{
             if (enemy.isActive()){
                 enemy.update(player);
                 enemy.draw();
-
-                for(Projectile projectile : player.gun.bullets){
-                    if (projectile.isActive && enemy.bulletcollision(projectile)){
-                        projectile.isActive = false;
-                        enemy.health -= player.gun.damage;
-                        if (enemy.health <= 0){
-                            player.coins += enemy.coinDrop;
-                            enemy.dead = true;
-                            enemy.active = false;
-                        }
-                    }
-                }
+                enemyBulletCollision(enemy);
             }
         }
 
@@ -166,18 +165,7 @@ public class BattleRoom extends Room{
             if (enemy.isActive()){
                 enemy.update(player);
                 enemy.draw();
-
-                for(Projectile projectile : player.gun.bullets){
-                    if (projectile.isActive && enemy.bulletcollision(projectile)){
-                        projectile.isActive = false;
-                        enemy.health -= player.gun.damage;
-                        if (enemy.health <= 0){
-                            player.coins += enemy.coinDrop;
-                            enemy.dead = true;
-                            enemy.active = false;
-                        }
-                    }
-                }
+                enemyBulletCollision(enemy);
             }
         }
 
@@ -185,19 +173,10 @@ public class BattleRoom extends Room{
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
             keyBulletKin.draw();
-
-            for(Projectile projectile : player.gun.bullets){
-                if (projectile.isActive && keyBulletKin.bulletcollision(projectile)){
-                    projectile.isActive = false;
-                    keyBulletKin.health -= player.gun.damage;
-                    if (keyBulletKin.health <= 0){
-                        keyBulletKin.dead = true;
-                        keyBulletKin.active = false;
-                        key = new Key(keyBulletKin.position);
-                    }
-                }
-            }
+            enemyBulletCollision(keyBulletKin);
         }
+
+
 
         for (TreasureBox treasureBox: treasureBoxes) {
             if (treasureBox.isActive()) {
@@ -306,7 +285,7 @@ public class BattleRoom extends Room{
 
     public void fireballObstacleCollision(Obstacle obstacle, Enemy enemy){
         for(Fireball ball: enemy.fireBalls) {
-            if (obstacle.fireballcollision(ball)) {
+            if (obstacle.projectilecollision(ball)) {
                 ball.isActive = false;
                 obstacle.Active = false;
             }
@@ -315,7 +294,7 @@ public class BattleRoom extends Room{
 
     public void bulletObstacleCollision(Obstacle obstacle){
         for (Bullet bullet: player.gun.bullets){
-            if (obstacle.bulletcollision(bullet)){
+            if (obstacle.projectilecollision(bullet)){
                 bullet.isActive = false;
                 obstacle.Active = false;
                 if (obstacle instanceof Basket) {
@@ -325,12 +304,36 @@ public class BattleRoom extends Room{
         }
     }
 
+    public void enemyBulletCollision(Enemy enemy){
+        for(Projectile projectile : player.gun.bullets){
+            if (projectile.isActive && enemy.bulletcollision(projectile)){
+                projectile.isActive = false;
+                enemy.health -= player.gun.getDamage();
+                if (enemy.health <= 0){
+                    player.coins += enemy.coinDrop;
+                    enemy.dead = true;
+                    enemy.active = false;
+                    if (enemy instanceof KeyBulletKin){
+                        key = new Key(keyBulletKin.position);
+                    }
+                }
+            }
+        }
+    }
 
     private void storefunc(BattleRoom curr, Input input){
+        primaryDoor.draw();
+        secondaryDoor.draw();
+
         if(basket.isActive()) {
             basket.update(player);
             basket.draw();
         }
+        if(table.isActive()) {
+            table.update(player);
+            table.draw();
+        }
+
         for (Wall wall: walls) {
             wall.update(player);
             wall.draw();
@@ -339,10 +342,28 @@ public class BattleRoom extends Room{
             river.update(player);
             river.draw();
         }
+        if (player != null){
+            player.draw();
+        }
+        for(AshenBulletKin enemy: AshenBKs){
+            if (enemy.isActive()){
+                enemy.draw();
+            }
+        }
+        for(BulletKin enemy: BKs){
+            if (enemy.isActive()){
+                enemy.draw();
+            }
+        }
+        if (keyBulletKin.isActive()) {
+            keyBulletKin.draw();
+        }
+
         storerun.update(input, player, this);
         storerun.draw();
 
     }
+
 
 
 }

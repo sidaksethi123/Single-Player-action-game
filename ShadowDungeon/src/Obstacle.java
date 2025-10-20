@@ -5,16 +5,18 @@ import bagel.util.Point;
 public class Obstacle {
 
     public final Point position;
-    public final Image image;
+    public Image image;
+    public boolean Active = true;
     private static final Image fireImage = new Image("res/fireball.png");
     private static final Image bulletImage = new Image("res/bullet.png");
-    public boolean Active = true;
+
 
     public Obstacle(Point position, Image image) {
         this.position = position;
         this.image = image;
 
     }
+
 
     public void update(Player player) {
         if (hasCollidedWith(player)) {
@@ -32,13 +34,16 @@ public class Obstacle {
         image.draw(position.x, position.y);
     }
 
-    public boolean bulletcollision(Projectile bullet){
-        return image.getBoundingBoxAt(position).intersects
-                (bulletImage.getBoundingBoxAt(bullet.position));
-    }
 
-    public boolean fireballcollision(Projectile bullet){
+    public boolean projectilecollision(Projectile projectile){
+        Image projectileImg;
+        if (projectile instanceof Bullet){
+            projectileImg = bulletImage;
+        }
+        else{
+            projectileImg = fireImage;
+        }
         return image.getBoundingBoxAt(position).intersects
-                (fireImage.getBoundingBoxAt(bullet.position));
+                (projectileImg.getBoundingBoxAt(projectile.position));
     }
 }

@@ -18,7 +18,7 @@ public class Player {
     public Weapon gun;
     public int level = 0;
     public double keyCount = 0;
-    String[] weaponType = {"Standard","Advance", "Elite"};
+    public String[] weaponType = {"Standard","Advance", "Elite"};
 
     public Player(Image rightImage, Image leftImage, Player tempplayer) {
         this.position = tempplayer.position;
@@ -97,6 +97,7 @@ public class Player {
     public void earnCoins(double coins) {
         this.coins += coins;
     }
+
 
     public void receiveDamage(double damage) {
         health -= damage;

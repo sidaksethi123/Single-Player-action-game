@@ -9,8 +9,6 @@ import java.util.ArrayList;
 public class AshenBulletKin extends Enemy{
 
     private static final Image AshenBKimage= new Image("res/ashen_bullet_kin.png");
-
-
     private int elapsedCounter = 0;
 
 
@@ -31,7 +29,7 @@ public class AshenBulletKin extends Enemy{
 
         if (active){
             for(Fireball ball: fireBalls){
-                ball.update();
+                ball.update(player);
             }
             if (elapsedCounter%FireBallFreq == 0){
                 fireBalls.add(new Fireball(position, ShadowDungeon.playerPos()));

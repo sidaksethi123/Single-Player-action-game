@@ -31,7 +31,7 @@ public class BulletKin extends Enemy{
 
         if (active){
             for(Fireball ball: fireBalls){
-                ball.update();
+                ball.update(player);
             }
             if (elapsedCounter%FireBallFreq == 0){
                 fireBalls.add(new Fireball(position, ShadowDungeon.playerPos()));

@@ -5,12 +5,12 @@ import bagel.*;
 
 public class Bullet extends Projectile {
 
-    private final double Speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("bulletSpeed"));
-    private final double BulletFreq = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("bulletFreq"));
+
     private static final Image bulletImage = new Image("res/bullet.png");
 
     public Bullet(double damage, Point position, Point direction){
-        super(damage,position,direction,bulletImage);
+        super(damage,position,direction,bulletImage,
+                Double.parseDouble(ShadowDungeon.getGameProps().getProperty("bulletSpeed")));
         double initDistance = position.distanceTo(direction);
     }
 
