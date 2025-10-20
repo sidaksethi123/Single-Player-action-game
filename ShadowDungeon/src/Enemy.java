@@ -14,6 +14,9 @@ public class Enemy{
     public double health;
     public double coinDrop;
     public double FireBallFreq;
+    private static final Image bulletImage = new Image("res/bullet.png");
+
+
 
     public Enemy(Point startPos, Image image, double health, double coinDrop) {
         this.position = startPos;
@@ -40,6 +43,10 @@ public class Enemy{
         return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
     }
 
+    public boolean bulletcollision(Projectile projectile) {
+        return image.getBoundingBoxAt(position).intersects
+                (bulletImage.getBoundingBoxAt(projectile.position));
+    }
 
     public boolean isDead() {
         return dead;

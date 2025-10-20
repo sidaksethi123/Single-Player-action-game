@@ -2,10 +2,10 @@ import bagel.Input;
 import bagel.Keys;
 import bagel.Image;
 import bagel.util.Point;
-
+import bagel.Font;
 import java.util.Map;
 import java.util.Properties;
-
+import bagel.Window;
 /**
  * Room where the game starts
  */
@@ -18,7 +18,7 @@ public class PrepRoom extends Room{
     private static final Image MARINE_IMAGE = new Image("res/marine_sprite.png");
     private static Point robotPos;
     private static Point marinePos;
-
+    Font prompt = new Font("res/wheaton.otf", 24);
 
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
@@ -68,6 +68,9 @@ public class PrepRoom extends Room{
 
         ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
         MARINE_IMAGE.draw(marinePos.x, marinePos.y);
+
+        prompt.drawString("Marine: No injury in rivers", 30, robotPos.y);
+        prompt.drawString("Robot: +5$ per kill", 685, robotPos.y);
 
         // door unlock mechanism
         if ((input.wasPressed(Keys.R) || input.wasPressed(Keys.M))) {

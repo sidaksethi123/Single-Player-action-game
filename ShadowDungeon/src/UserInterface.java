@@ -6,10 +6,14 @@ import bagel.util.Point;
  * Helper methods to display information for the player
  */
 public class UserInterface {
-    public static void drawStats(double health, double coins) {
+    public static void drawStats(double health, double coins, double keys) {
         int fontSize = Integer.parseInt(ShadowDungeon.getGameProps().getProperty("playerStats.fontSize"));
         drawData(String.format("%s %.1f", ShadowDungeon.getMessageProps().getProperty("healthDisplay"), health), fontSize,
                 IOUtils.parseCoords(ShadowDungeon.getGameProps().getProperty("healthStat")));
+        drawData(String.format("%s %.0f", ShadowDungeon.getMessageProps().getProperty("coinDisplay"), coins), fontSize,
+                IOUtils.parseCoords(ShadowDungeon.getGameProps().getProperty("coinStat")));
+        drawData(String.format("%s %.0f", ShadowDungeon.getMessageProps().getProperty("keyDisplay"), keys), fontSize,
+                IOUtils.parseCoords(ShadowDungeon.getGameProps().getProperty("keyStat")));
         drawData(String.format("%s %.0f", ShadowDungeon.getMessageProps().getProperty("coinDisplay"), coins), fontSize,
                 IOUtils.parseCoords(ShadowDungeon.getGameProps().getProperty("coinStat")));
     }

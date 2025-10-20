@@ -19,9 +19,10 @@ public class TreasureBox extends Obstacle{
     }
 
     public void update(Input input, Player player) {
-        if (hasCollidedWith(player) && input.wasPressed(Keys.K)) {
+        if (hasCollidedWith(player) && input.wasPressed(Keys.K) && (player.keyCount>=1)) {
             player.earnCoins(coinValue);
             active = false;
+            player.keyCount -= 1;
         }
     }
 

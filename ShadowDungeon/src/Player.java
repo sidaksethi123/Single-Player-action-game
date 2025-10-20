@@ -16,7 +16,8 @@ public class Player {
     public Image rightImage;
     public Image leftImage;
     public Weapon gun;
-
+    public int level = 0;
+    public double keyCount = 0;
 
     public Player(Point position, Image rightImage, Image leftImage) {
         this.position = position;
@@ -79,7 +80,7 @@ public class Player {
     public void draw() {
         currImage = faceLeft ? leftImage : rightImage; // NOTE: this is an example of using the ternary operator
         currImage.draw(position.x, position.y);
-        UserInterface.drawStats(health, coins);
+        UserInterface.drawStats(health, coins, keyCount);
     }
 
     public void earnCoins(double coins) {

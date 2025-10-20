@@ -1,4 +1,5 @@
 import bagel.Input;
+import bagel.Keys;
 import bagel.util.Point;
 import java.util.ArrayList;
 import java.util.Map;
@@ -8,6 +9,7 @@ import java.util.Properties;
  * Room with doors that are locked until the plaer defeats all enemies
  */
 public class BattleRoom extends Room{
+    private Key key;
     private Door primaryDoor;
     private Door secondaryDoor;
     private Table table;
@@ -21,6 +23,8 @@ public class BattleRoom extends Room{
     private ArrayList<AshenBulletKin> AshenBKs;
     private final String nextRoomName;
     private final String roomName;
+    public int storeflag = 0;
+    private Store storerun = new Store();
 
     public BattleRoom(String roomName, String nextRoomName) {
         keyBKdirection = new ArrayList<>();
@@ -100,6 +104,18 @@ public class BattleRoom extends Room{
 
     public void update(Input input) {
         // update and draw all active game objects in this room
+        if (input.wasPressed(Keys.SPACE)){
+            storeflag = 1;
+            return;
+        }
+
+        if (storeflag == 1){
+            storefunc(this);
+            return;
+        }
+
+
+
         primaryDoor.update(player);
         primaryDoor.draw();
         if (stopUpdatingEarlyIfNeeded()) {
@@ -117,6 +133,18 @@ public class BattleRoom extends Room{
             if (enemy.isActive()){
                 enemy.update(player);
                 enemy.draw();
+
+                for(Projectile projectile : player.gun.bullets){
+                    if (projectile.isActive && enemy.bulletcollision(projectile)){
+                        projectile.isActive = false;
+                        enemy.health -= player.gun.damage;
+                        player.coins += enemy.coinDrop;
+                        if (enemy.health <= 0){
+                            enemy.dead = true;
+                            enemy.active = false;
+                        }
+                    }
+                }
             }
         }
 
@@ -124,6 +152,18 @@ public class BattleRoom extends Room{
             if (enemy.isActive()){
                 enemy.update(player);
                 enemy.draw();
+
+                for(Projectile projectile : player.gun.bullets){
+                    if (projectile.isActive && enemy.bulletcollision(projectile)){
+                        projectile.isActive = false;
+                        enemy.health -= player.gun.damage;
+                        player.coins += enemy.coinDrop;
+                        if (enemy.health <= 0){
+                            enemy.dead = true;
+                            enemy.active = false;
+                        }
+                    }
+                }
             }
         }
 
@@ -158,6 +198,19 @@ public class BattleRoom extends Room{
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
             keyBulletKin.draw();
+
+            for(Projectile projectile : player.gun.bullets){
+                if (projectile.isActive && keyBulletKin.bulletcollision(projectile)){
+                    projectile.isActive = false;
+                    keyBulletKin.health -= player.gun.damage;
+                    if (keyBulletKin.health <= 0){
+                        keyBulletKin.dead = true;
+                        keyBulletKin.active = false;
+                        key = new Key(keyBulletKin.position);
+                    }
+                }
+            }
+
         }
 
         for (TreasureBox treasureBox: treasureBoxes) {
@@ -165,6 +218,11 @@ public class BattleRoom extends Room{
                 treasureBox.update(input, player);
                 treasureBox.draw();
             }
+        }
+
+        if(key != null && key.isActive()) {
+            key.update(player);
+            key.draw();
         }
 
         if(table.isActive()){
@@ -201,6 +259,7 @@ public class BattleRoom extends Room{
                 if (basket.bulletcollision(projectile)){
                     projectile.isActive = false;
                     basket.Active = false;
+                    player.coins += 20;
                 }
             }
             for (AshenBulletKin enemy: AshenBKs){
@@ -287,6 +346,25 @@ public class BattleRoom extends Room{
             }
         }
         return true;
+    }
+
+
+    private void storefunc(BattleRoom curr){
+        if(basket.isActive()) {
+            basket.update(player);
+            basket.draw();
+        }
+        for (Wall wall: walls) {
+            wall.update(player);
+            wall.draw();
+        }
+        for (River river: rivers) {
+            river.update(player);
+            river.draw();
+        }
+        storerun.update();
+        storerun.draw();
+
     }
 
 

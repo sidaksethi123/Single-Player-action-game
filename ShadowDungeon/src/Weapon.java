@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class Weapon {
 
     private final String level;
-    private final double damage;
+    public final double damage;
     private static final Image image = new Image("res/bullet.png");
     private double elapsedCounter = 0;
 

@@ -5,22 +5,22 @@ import bagel.util.Point;
  * Hazard that applies damage for as long as the player is on it
  */
 public class Key extends Obstacle{
-    private static final Image tableImage = new Image("res/key.png");
+    private static final Image keyImage = new Image("res/key.png");
+    public boolean Active = true;
 
     public Key(Point position) {
-        super(position, tableImage);
+        super(position, keyImage);
     }
-
-    @Override
     public void update(Player player) {
-        System.out.println("hi");
+        if (hasCollidedWith(player)) {
+            // set the player to its position prior to attempting to move through this wall
+            Active = false;
+            player.keyCount += 1;
+        }
+
     }
 
-    public void draw() {
-        image.draw(position.x, position.y);
-    }
-
-    public boolean hasCollidedWith(Player player) {
-        return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
+    public boolean isActive(){
+        return Active;
     }
 }
