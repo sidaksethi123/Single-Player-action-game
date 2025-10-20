@@ -8,7 +8,7 @@ public class Obstacle {
     public final Image image;
     private static final Image fireImage = new Image("res/fireball.png");
     private static final Image bulletImage = new Image("res/bullet.png");
-
+    public boolean Active = true;
 
     public Obstacle(Point position, Image image) {
         this.position = position;

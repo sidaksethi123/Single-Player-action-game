@@ -6,7 +6,6 @@ import bagel.util.Point;
  */
 public class Key extends Obstacle{
     private static final Image keyImage = new Image("res/key.png");
-    public boolean Active = true;
 
     public Key(Point position) {
         super(position, keyImage);

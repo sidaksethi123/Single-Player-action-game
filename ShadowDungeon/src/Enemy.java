@@ -1,6 +1,8 @@
 import bagel.Image;
 import bagel.util.Point;
 
+import java.util.ArrayList;
+
 /**
  * Enemy that gets removed when the player overlaps with it
  */
@@ -15,7 +17,7 @@ public class Enemy{
     public double coinDrop;
     public double FireBallFreq;
     private static final Image bulletImage = new Image("res/bullet.png");
-
+    public ArrayList<Fireball> fireBalls;
 
 
     public Enemy(Point startPos, Image image, double health, double coinDrop) {

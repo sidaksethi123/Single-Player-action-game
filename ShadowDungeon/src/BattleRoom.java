@@ -104,8 +104,7 @@ public class BattleRoom extends Room{
 
     public void update(Input input) {
         // update and draw all active game objects in this room
-
-
+        
         if (storeflag == 1){
             storefunc(this, input);
             return;
@@ -131,6 +130,19 @@ public class BattleRoom extends Room{
         }
 
 
+        for (Wall wall: walls) {
+            wall.update(player);
+            wall.draw();
+            bulletObstacleCollision(wall);
+            EnemyFireballCollision(wall);
+        }
+
+
+        for (River river: rivers) {
+            river.update(player);
+            river.draw();
+        }
+
         for(AshenBulletKin enemy: AshenBKs){
             if (enemy.isActive()){
                 enemy.update(player);
@@ -140,8 +152,8 @@ public class BattleRoom extends Room{
                     if (projectile.isActive && enemy.bulletcollision(projectile)){
                         projectile.isActive = false;
                         enemy.health -= player.gun.damage;
-                        player.coins += enemy.coinDrop;
                         if (enemy.health <= 0){
+                            player.coins += enemy.coinDrop;
                             enemy.dead = true;
                             enemy.active = false;
                         }
@@ -159,8 +171,8 @@ public class BattleRoom extends Room{
                     if (projectile.isActive && enemy.bulletcollision(projectile)){
                         projectile.isActive = false;
                         enemy.health -= player.gun.damage;
-                        player.coins += enemy.coinDrop;
                         if (enemy.health <= 0){
+                            player.coins += enemy.coinDrop;
                             enemy.dead = true;
                             enemy.active = false;
                         }
@@ -169,33 +181,6 @@ public class BattleRoom extends Room{
             }
         }
 
-        for (Wall wall: walls) {
-            wall.update(player);
-            wall.draw();
-            for (Projectile projectile: player.gun.bullets){
-                if (wall.bulletcollision(projectile)){
-                    projectile.isActive = false;
-                }
-            }
-            for (AshenBulletKin enemy: AshenBKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (wall.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                }
-            }
-            for (BulletKin enemy: BKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (wall.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                    }
-            }
-        }
-
-
-        for (River river: rivers) {
-            river.update(player);
-            river.draw();
-        }
 
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
@@ -212,7 +197,6 @@ public class BattleRoom extends Room{
                     }
                 }
             }
-
         }
 
         for (TreasureBox treasureBox: treasureBoxes) {
@@ -230,54 +214,15 @@ public class BattleRoom extends Room{
         if(table.isActive()){
             table.update(player);
             table.draw();
-
-            for (Projectile projectile: player.gun.bullets){
-                if (table.bulletcollision(projectile)){
-                    projectile.isActive = false;
-                    table.Active = false;
-                }
-            }
-            for (AshenBulletKin enemy: AshenBKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (table.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                        table.Active = false;
-                    }
-            }
-            for (BulletKin enemy: BKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (table.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                        table.Active = false;
-                    }
-            }
-
+            bulletObstacleCollision(table);
+            EnemyFireballCollision(table);
         }
 
         if(basket.isActive()){
             basket.update(player);
             basket.draw();
-            for (Projectile projectile: player.gun.bullets){
-                if (basket.bulletcollision(projectile)){
-                    projectile.isActive = false;
-                    basket.Active = false;
-                    player.coins += 20;
-                }
-            }
-            for (AshenBulletKin enemy: AshenBKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (basket.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                        basket.Active = false;
-                    }
-            }
-            for (BulletKin enemy: BKs){
-                for(Projectile projectile: enemy.fireBalls)
-                    if (basket.fireballcollision(projectile)){
-                        projectile.isActive = false;
-                        basket.Active = false;
-                    }
-            }
+            bulletObstacleCollision(basket);
+            EnemyFireballCollision(basket);
         }
 
         if (player != null) {
@@ -348,6 +293,36 @@ public class BattleRoom extends Room{
             }
         }
         return true;
+    }
+
+    public void EnemyFireballCollision(Obstacle obstacle){
+        for (AshenBulletKin enemy: AshenBKs){
+            fireballObstacleCollision(obstacle, enemy);
+        }
+        for (BulletKin enemy: BKs){
+            fireballObstacleCollision(obstacle, enemy);
+        }
+    }
+
+    public void fireballObstacleCollision(Obstacle obstacle, Enemy enemy){
+        for(Fireball ball: enemy.fireBalls) {
+            if (obstacle.fireballcollision(ball)) {
+                ball.isActive = false;
+                obstacle.Active = false;
+            }
+        }
+    }
+
+    public void bulletObstacleCollision(Obstacle obstacle){
+        for (Bullet bullet: player.gun.bullets){
+            if (obstacle.bulletcollision(bullet)){
+                bullet.isActive = false;
+                obstacle.Active = false;
+                if (obstacle instanceof Basket) {
+                    player.earnCoins(20);
+                }
+            }
+        }
     }
 
 

@@ -10,7 +10,6 @@ public class TreasureBox extends Obstacle{
 
     private static final Image treasureImage = new Image("res/treasure_box.png");
     private final double coinValue;
-    private boolean active = true;
 
     public TreasureBox(Point position, double coinValue) {
 
@@ -21,7 +20,7 @@ public class TreasureBox extends Obstacle{
     public void update(Input input, Player player) {
         if (hasCollidedWith(player) && input.wasPressed(Keys.K) && (player.keyCount>=1)) {
             player.earnCoins(coinValue);
-            active = false;
+            Active = false;
             player.keyCount -= 1;
         }
     }
@@ -35,6 +34,6 @@ public class TreasureBox extends Obstacle{
     }
 
     public boolean isActive() {
-        return active;
+        return Active;
     }
 }

@@ -10,7 +10,6 @@ public class BulletKin extends Enemy{
 
     private static final Image BKimage= new Image("res/bullet_kin.png");
 
-    public ArrayList<Fireball> fireBalls;
     private int elapsedCounter = 0;
 
     public BulletKin(Point startPos) {

@@ -17,15 +17,11 @@ public class River extends Obstacle{
 
     public void update(Player player) {
         if (hasCollidedWith(player)) {
-            player.receiveDamage(damagePerFrame);
+            if (player instanceof Robot){
+                player.receiveDamage(damagePerFrame);
+            }
         }
     }
 
-    public void draw() {
-        image.draw(position.x, position.y);
-    }
 
-    public boolean hasCollidedWith(Player player) {
-        return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
-    }
 }
