@@ -28,12 +28,14 @@ public class Store {
         if (input.wasPressed(Keys.P)) {
             ShadowDungeon.resetGameState(ShadowDungeon.getGameProps());
         }
+        // buy health
         if (input.wasPressed(Keys.E)) {
             if (player.coins >= 50) {
                 player.coins -= 50;
                 player.health += 50;
             }
         }
+        //upgrade weapon
         if (input.wasPressed(Keys.L) && player.coins >= 50) {
             if (player.level == 0) {
                 player.gun = new Weapon("Advance");

@@ -59,11 +59,14 @@ public class PrepRoom extends Room{
      */
     public void update(Input input) {
         UserInterface.drawStartMessages();
+
+
         ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
         MARINE_IMAGE.draw(marinePos.x, marinePos.y);
-
-        UserInterface.drawData("Marine: No injury in rivers", 20, marineMsg);
-        UserInterface.drawData("Robot: +5$ per kill", 20, robotMsg);
+        UserInterface.drawData(ShadowDungeon.getMessageProps().getProperty("marineDescription"),
+                Integer.parseInt(ShadowDungeon.getGameProps().getProperty("playerStats.fontSize")), marineMsg);
+        UserInterface.drawData(ShadowDungeon.getMessageProps().getProperty("robotDescription"),
+                Integer.parseInt(ShadowDungeon.getGameProps().getProperty("playerStats.fontSize")), robotMsg);
 
         UserInterface.drawTextCentered("selectMessage", 24, 509);
         // update and draw all game objects in this room
