@@ -4,17 +4,26 @@ import bagel.Keys;
 import bagel.util.Point;
 
 /**
- * Area in Prep or End Room where the player can trigger a game reset
+ * Area in battleroom where the player can buy health or weapons
  */
 public class Store {
     private final Point position;
     private final Image image;
 
+    /**
+     * create store
+     */
     public Store() {
         this.position = new Point(ShadowDungeon.screenWidth/2,ShadowDungeon.screenHeight/2);
         this.image = new Image("res/store.png");
     }
 
+    /**
+     * update logic on whether something has been purchased
+     * @param input key event press
+     * @param player current player
+     * @param Curr current battlroom
+     */
     public void update(Input input, Player player, BattleRoom Curr) {
         if (input.wasPressed(Keys.P)) {
             ShadowDungeon.resetGameState(ShadowDungeon.getGameProps());
@@ -42,7 +51,9 @@ public class Store {
         }
     }
 
-
+    /**
+     * draw the store
+     */
     public void draw() {
         image.draw(position.x, position.y);
     }

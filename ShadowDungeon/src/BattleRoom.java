@@ -23,9 +23,17 @@ public class BattleRoom extends Room{
     private ArrayList<AshenBulletKin> AshenBKs;
     private final String nextRoomName;
     private final String roomName;
-    public int storeflag = 0;
     private Store storerun = new Store();
+    /**
+     * Updating store status from other classes
+     */
+    public int storeflag = 0;
 
+    /**
+     * Constructor to create new BattleRoom
+     * @param roomName current room
+     * @param nextRoomName room on other side of door
+     */
     public BattleRoom(String roomName, String nextRoomName) {
         keyBKdirection = new ArrayList<>();
         BKs = new ArrayList<>();
@@ -37,6 +45,10 @@ public class BattleRoom extends Room{
         this.nextRoomName = nextRoomName;
     }
 
+    /**
+     * initialise relevant fields dynamically
+     * @param gameProperties all relevant game properties
+     */
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
@@ -102,39 +114,35 @@ public class BattleRoom extends Room{
         keyBulletKin = new KeyBulletKin(keyBKdirection.get(0), keyBKdirection);
     }
 
+    /**
+     * Update the state of all objects contained within the battleroom
+     * @param input key events from user
+     */
     public void update(Input input) {
         // update and draw all active game objects in this room
-
         if (storeflag == 1){
             storefunc(this, input);
             return;
         }
-
-
         if (input.wasPressed(Keys.SPACE)){
             storeflag = 1;
             return;
         }
-
 
         primaryDoor.update(player);
         primaryDoor.draw();
         if (stopUpdatingEarlyIfNeeded()) {
             return;
         }
-
         secondaryDoor.update(player);
         secondaryDoor.draw();
         if (stopUpdatingEarlyIfNeeded()) {
             return;
         }
-
-
         if (!primaryDoor.isUnlocked()){
             bulletObstacleCollision(primaryDoor);
             EnemyFireballCollision(primaryDoor);
         }
-
         if (!secondaryDoor.isUnlocked()){
             bulletObstacleCollision(secondaryDoor);
             EnemyFireballCollision(secondaryDoor);
@@ -147,12 +155,11 @@ public class BattleRoom extends Room{
             EnemyFireballCollision(wall);
         }
 
-
         for (River river: rivers) {
             river.update(player);
             river.draw();
         }
-
+        //check presence of ABKS
         for(AshenBulletKin enemy: AshenBKs){
             if (enemy.isActive()){
                 enemy.update(player);
@@ -160,7 +167,7 @@ public class BattleRoom extends Room{
                 enemyBulletCollision(enemy);
             }
         }
-
+        //check presence of bks
         for(BulletKin enemy: BKs){
             if (enemy.isActive()){
                 enemy.update(player);
@@ -168,15 +175,12 @@ public class BattleRoom extends Room{
                 enemyBulletCollision(enemy);
             }
         }
-
-
+        //check presence of KBK
         if (keyBulletKin.isActive()) {
             keyBulletKin.update(player);
             keyBulletKin.draw();
             enemyBulletCollision(keyBulletKin);
         }
-
-
 
         for (TreasureBox treasureBox: treasureBoxes) {
             if (treasureBox.isActive()) {
@@ -185,6 +189,7 @@ public class BattleRoom extends Room{
             }
         }
 
+        //key is only activated when KBK in not active
         if(key != null && key.isActive()) {
             key.update(player);
             key.draw();
@@ -196,7 +201,6 @@ public class BattleRoom extends Room{
             bulletObstacleCollision(table);
             EnemyFireballCollision(table);
         }
-
         if(basket.isActive()){
             basket.update(player);
             basket.draw();
@@ -215,13 +219,19 @@ public class BattleRoom extends Room{
         }
     }
 
-
-
-
+    /**
+     * Set player status
+     * @param player current player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     * find the door by destination
+     * @param roomName relevant room
+     * @return the next locations
+     */
     public Door findDoorByDestination(String roomName) {
         if (primaryDoor.toRoomName.equals(roomName)) {
             return primaryDoor;
@@ -235,11 +245,17 @@ public class BattleRoom extends Room{
         secondaryDoor.unlock(false);
     }
 
-
+    /**
+     * Set status when enemies are gone
+     * @param complete tracks game status
+     */
     public void setComplete(boolean complete) {
         isComplete = complete;
     }
 
+    /**
+     * initialise enemy objects
+     */
     public void activateEnemies() {
         keyBulletKin.setActive(true);
 
@@ -252,10 +268,18 @@ public class BattleRoom extends Room{
         }
     }
 
+    /**
+     * Check presence of enemies
+     * @return Enemies left or not
+     */
     public boolean noMoreEnemies() {
         return (keyBulletKin.isDead() && nomorebulletkin() && nomoreashenbulletkin());
     }
 
+    /**
+     * helper function for noMoreEnemies
+     * @return status of BulletKins
+     */
     public boolean nomorebulletkin(){
         for(BulletKin enemy: BKs){
             if (!enemy.isDead()){
@@ -265,6 +289,10 @@ public class BattleRoom extends Room{
         return true;
     }
 
+    /**
+     * helper function for noMoreEnemies
+     * @return status of AshenBulletKins
+     */
     public boolean nomoreashenbulletkin(){
         for(AshenBulletKin enemy: AshenBKs){
             if (!enemy.isDead()){
@@ -274,16 +302,28 @@ public class BattleRoom extends Room{
         return true;
     }
 
+    /**
+     * Implement enemy fireball collision logic if collision has happend
+     * @param obstacle obstacle collided with
+     */
     public void EnemyFireballCollision(Obstacle obstacle){
+        //check every AshenBulletKin
         for (AshenBulletKin enemy: AshenBKs){
             fireballObstacleCollision(obstacle, enemy);
         }
+        //check every bulletkin
         for (BulletKin enemy: BKs){
             fireballObstacleCollision(obstacle, enemy);
         }
     }
 
+    /**
+     * Helper function for EnemyFireballCollision
+     * @param obstacle obstacle collided with
+     * @param enemy type of enemy we are checking collision for
+     */
     public void fireballObstacleCollision(Obstacle obstacle, Enemy enemy){
+        //check all fireballs
         for(Fireball ball: enemy.fireBalls) {
             if (obstacle.projectilecollision(ball)) {
                 ball.isActive = false;
@@ -292,7 +332,12 @@ public class BattleRoom extends Room{
         }
     }
 
+    /**
+     * checking if bullet has collided with obstacle
+     * @param obstacle obstacle collided with
+     */
     public void bulletObstacleCollision(Obstacle obstacle){
+        //iterate through all bullets
         for (Bullet bullet: player.gun.bullets){
             if (obstacle.projectilecollision(bullet)){
                 bullet.isActive = false;
@@ -304,13 +349,21 @@ public class BattleRoom extends Room{
         }
     }
 
+    /**
+     * Check if player has shot enemy
+     * @param enemy enemy collided with
+     */
     public void enemyBulletCollision(Enemy enemy){
+        //iterate through all projectiles
         for(Projectile projectile : player.gun.bullets){
             if (projectile.isActive && enemy.bulletcollision(projectile)){
                 projectile.isActive = false;
                 enemy.receiveDamage(player.gun.getDamage());
                 if (enemy.health <= 0){
-                    player.coins += enemy.coinDrop;
+                    player.earnCoins(enemy.coinDrop);
+                    if (player instanceof Robot){
+                        player.earnCoins(5);
+                    }
                     enemy.dead = true;
                     enemy.active = false;
                     if (enemy instanceof KeyBulletKin){
@@ -321,10 +374,16 @@ public class BattleRoom extends Room{
         }
     }
 
+    /**
+     * Update screen objects so it is paused when store is activated
+     * @param curr current Room object-used for debugging
+     * @param input player key events
+     */
     private void storefunc(BattleRoom curr, Input input){
         primaryDoor.draw();
         secondaryDoor.draw();
 
+        //update all object states for the pause
         if(basket.isActive()) {
             basket.update(player);
             basket.draw();

@@ -16,11 +16,16 @@ public class PrepRoom extends Room{
 
     private static final Image ROBOT_IMAGE = new Image("res/robot_sprite.png");
     private static final Image MARINE_IMAGE = new Image("res/marine_sprite.png");
+    // not final, for future proofing purposes
     private static Point robotPos;
     private static Point marinePos;
     private static Point robotMsg;
     private static Point marineMsg;
 
+    /**
+     * dynamically intialise fields
+     * @param gameProperties game properties
+     */
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         robotPos = IOUtils.parseCoords(gameProperties.getProperty("Robot"));
@@ -48,7 +53,10 @@ public class PrepRoom extends Room{
         }
     }
 
-
+    /**
+     * update the objects in the room
+     * @param input key event presses
+     */
     public void update(Input input) {
         UserInterface.drawStartMessages();
         ROBOT_IMAGE.draw(robotPos.x, robotPos.y);
@@ -74,8 +82,6 @@ public class PrepRoom extends Room{
             player.draw();
         }
 
-
-
         // door unlock mechanism
         if ((input.wasPressed(Keys.R) || input.wasPressed(Keys.M))) {
 
@@ -94,16 +100,26 @@ public class PrepRoom extends Room{
 
     }
 
-
+    /**
+     * set player status
+     * @param player current player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
-
+    /**
+     * find door
+     * @return door object
+     */
     public Door findDoor() {
         return door;
     }
 
+    /**
+     * find door by destination
+     * @return door object
+     */
     public Door findDoorByDestination() {
         return door;
     }

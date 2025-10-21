@@ -6,6 +6,9 @@ import bagel.util.Rectangle;
  * Player character that can move around and between rooms, defeat enemies, collect coins
  */
 public class Player implements Damageable, Movable {
+    /**
+     * protected variables not allowed and it felt necessary for these to be inherited thus public
+     */
     public Point prevPosition;
     public Point position;
     public Image currImage;
@@ -18,8 +21,14 @@ public class Player implements Damageable, Movable {
     public Weapon gun;
     public int level = 0;
     public double keyCount = 0;
-    public String[] weaponType = {"Standard","Advance", "Elite"};
+    public static String[] weaponType = {"Standard","Advance", "Elite"};
 
+    /**
+     * create player
+     * @param rightImage facing right
+     * @param leftImage facing left
+     * @param tempplayer previous state
+     */
     public Player(Image rightImage, Image leftImage, Player tempplayer) {
         this.position = tempplayer.position;
         this.currImage = rightImage;
@@ -40,6 +49,10 @@ public class Player implements Damageable, Movable {
         this.coins = tempplayer.coins;
     }
 
+    /**
+     * constructor for default character in preproom
+     * @param position position of spawn
+     */
     public Player(Point position) {
         this.position = position;
         this.rightImage = new Image("res/player_right.png");
@@ -50,7 +63,10 @@ public class Player implements Damageable, Movable {
         this.gun = null;
     }
 
-
+    /**
+     * update state and consequences
+     * @param input key event presses
+     */
     public void update(Input input) {
         // check movement keys and mouse cursor
         double currX = position.x;
@@ -82,23 +98,38 @@ public class Player implements Damageable, Movable {
             gun.update(input, this);
         }
     }
-    
+
+    /**
+     * move player
+     * @param x x position
+     * @param y y positoon
+     */
     public void move(double x, double y) {
         prevPosition = position;
         position = new Point(x, y);
     }
 
+    /**
+     * draw object
+     */
     public void draw() {
         currImage = faceLeft ? leftImage : rightImage; // NOTE: this is an example of using the ternary operator
         currImage.draw(position.x, position.y);
         UserInterface.drawStats(health, coins, keyCount, level);
     }
 
+    /**
+     * earn coins
+     * @param coins amount earned
+     */
     public void earnCoins(double coins) {
         this.coins += coins;
     }
 
-
+    /**
+     * take damage
+     * @param damage amount of damage
+     */
     public void receiveDamage(double damage) {
         health -= damage;
         if (health <= 0) {
@@ -106,18 +137,34 @@ public class Player implements Damageable, Movable {
         }
     }
 
+    /**
+     * get health
+     * @return health
+     */
     public double getHealth() {
         return health;
     }
 
+    /**
+     * get position
+     * @return position
+     */
     public Point getPosition() {
         return position;
     }
 
+    /**
+     * get current image
+     * @return current image
+     */
     public Image getCurrImage() {
         return currImage;
     }
 
+    /**
+     * get previous position
+     * @return previous position
+     */
     public Point getPrevPosition() {
         return prevPosition;
     }

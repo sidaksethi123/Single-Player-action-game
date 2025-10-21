@@ -7,6 +7,9 @@ import java.util.Properties;
  * Main game class that manages initialising the rooms and moving the player between rooms
  */
 public class   ShadowDungeon extends AbstractGame {
+    /**
+     * general game properties
+     */
     public static Properties gameProps;
     public static Properties messageProps;
     public static double screenWidth;
@@ -19,13 +22,20 @@ public class   ShadowDungeon extends AbstractGame {
     private static EndRoom endRoom;
     private static Player player;
     private final Image background;
-    
+
+    /**
+     * room names
+     */
     public static final String PREP_ROOM_NAME = "prep";
     public static final String BATTLE_ROOM_A_NAME = "A";
     public static final String BATTLE_ROOM_B_NAME = "B";
     public static final String END_ROOM_NAME = "end";
 
-
+    /**
+     * create object
+     * @param gameProps game properties
+     * @param messageProps message properties
+     */
     public ShadowDungeon(Properties gameProps, Properties messageProps) {
         super(Integer.parseInt(gameProps.getProperty("window.width")),
                 Integer.parseInt(gameProps.getProperty("window.height")),
@@ -40,6 +50,10 @@ public class   ShadowDungeon extends AbstractGame {
         resetGameState(gameProps);
     }
 
+    /**
+     * reset game state
+     * @param gameProps game properties
+     */
     public static void resetGameState(Properties gameProps) {
         prepRoom = new PrepRoom();
         battleRoomA = new BattleRoom(BATTLE_ROOM_A_NAME, BATTLE_ROOM_B_NAME);
@@ -162,6 +176,9 @@ public class   ShadowDungeon extends AbstractGame {
         }
     }
 
+    /**
+     * change to game over room
+     */
     public static void changeToGameOverRoom() {
         switch (currRoomName) {
             case PREP_ROOM_NAME:
@@ -181,22 +198,34 @@ public class   ShadowDungeon extends AbstractGame {
         endRoom.setPlayer(player);
     }
 
+    /**
+     * set new player when changed
+     * @param New
+     */
     public static void setplayertype(Player New){
         player = New;
     }
 
-    public static Point playerPos(){
-        return player.position;
-    }
-
-
+    /**
+     * get game props
+     * @return game props
+     */
     public static Properties getGameProps() {
         return gameProps;
     }
+
+    /**
+     * get message props
+     * @return message props
+     */
     public static Properties getMessageProps() {
         return messageProps;
     }
 
+    /**
+     * This is the class that controls the running of ShadowDungeon
+     * @param args string args
+     */
     public static void main(String[] args) {
         Properties gameProps = IOUtils.readPropertiesFile("res/app.properties");
         Properties messageProps = IOUtils.readPropertiesFile("res/message.properties");

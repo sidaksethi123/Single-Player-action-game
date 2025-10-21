@@ -12,7 +12,10 @@ public class EndRoom extends Room{
     private RestartArea restartArea;
     private boolean isGameOver = false;
 
-
+    /**
+     * Dynamically initialise relevant fields
+     * @param gameProperties properties of game
+     */
     public void initEntities(Properties gameProperties) {
         // find the configuration of game objects for this room
         for (Map.Entry<Object, Object> entry: gameProperties.entrySet()) {
@@ -36,7 +39,10 @@ public class EndRoom extends Room{
     }
 
 
-
+    /**
+     * update objects contained within endroom
+     * @param input player key events
+     */
     public void update(Input input) {
         UserInterface.drawEndMessage(!isGameOver);
 
@@ -62,19 +68,33 @@ public class EndRoom extends Room{
     }
 
 
-
+    /**
+     * Set player status
+     * @param player current player
+     */
     public void setPlayer(Player player) {
         this.player = player;
     }
 
+    /**
+     * find the door
+     * @return door object
+     */
     public Door findDoor() {
         return door;
     }
 
+    /**
+     * find door by destination
+     * @return door object
+     */
     public Door findDoorByDestination() {
         return door;
     }
 
+    /**
+     * check if game is over or not
+     */
     public void isGameOver() {
         isGameOver = true;
     }

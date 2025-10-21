@@ -4,7 +4,7 @@ import bagel.util.Point;
 import java.util.ArrayList;
 
 /**
- * Enemy that gets removed when the player overlaps with it
+ * Enemy that damages player when overlapped with it
  */
 public class KeyBulletKin extends Enemy implements Movable{
 
@@ -14,12 +14,21 @@ public class KeyBulletKin extends Enemy implements Movable{
     private final double speed = Double.parseDouble(ShadowDungeon.getGameProps().getProperty("keyBulletKinSpeed"));
     private ArrayList<Point> directions;
 
+    /**
+     * create Keybulletkin object
+     * @param startPos initial coordinates
+     * @param directions the route of the moving object
+     */
     public KeyBulletKin(Point startPos, ArrayList<Point> directions) {
         super(startPos, KeyBKimage,
                 Double.parseDouble(ShadowDungeon.getGameProps().getProperty("keyBulletKinHealth")), 0);
         this.directions = directions;
     }
 
+    /**
+     * Update the status and consequences of KeybulletKin
+     * @param player current player status
+     */
     @Override
     public void update(Player player) {
 
@@ -32,6 +41,9 @@ public class KeyBulletKin extends Enemy implements Movable{
          }
     }
 
+    /**
+     * Update how the enemy moves in BattleRooms
+     */
     public void BattleRoomupdate(){
         Point goal = directions.get(currStatus);
         double distance = position.distanceTo(goal);
@@ -41,6 +53,7 @@ public class KeyBulletKin extends Enemy implements Movable{
         double currX = position.x;
         double currY = position.y;
 
+        //logic for when direction will be changed
         if (distance < speed){
             position = goal;
             currStatus= (currStatus + 1) % directions.size();
@@ -54,7 +67,11 @@ public class KeyBulletKin extends Enemy implements Movable{
     }
 
 
-
+    /**
+     * Move position
+     * @param x x coord
+     * @param y y coord
+     */
     public void move(double x, double y) {
         position = new Point(x, y);
 

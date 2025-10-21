@@ -25,6 +25,11 @@ public class IOUtils {
         return appProps;
     }
 
+    /**
+     * paarse string coordinate
+     * @param coords string coordinates
+     * @return coordinates as Point
+     */
     public static Point parseCoords(String coords) {
         String[] coordinates = coords.split(",");
         return new Point(Double.parseDouble(coordinates[0]), Double.parseDouble(coordinates[1]));
