@@ -2,7 +2,7 @@ import bagel.Image;
 import bagel.util.Point;
 
 
-public class Obstacle {
+public class Obstacle implements Collidable {
 
     public final Point position;
     public Image image;

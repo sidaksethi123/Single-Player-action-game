@@ -308,7 +308,7 @@ public class BattleRoom extends Room{
         for(Projectile projectile : player.gun.bullets){
             if (projectile.isActive && enemy.bulletcollision(projectile)){
                 projectile.isActive = false;
-                enemy.health -= player.gun.getDamage();
+                enemy.receiveDamage(player.gun.getDamage());
                 if (enemy.health <= 0){
                     player.coins += enemy.coinDrop;
                     enemy.dead = true;

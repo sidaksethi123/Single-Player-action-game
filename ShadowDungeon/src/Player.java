@@ -5,7 +5,7 @@ import bagel.util.Rectangle;
 /**
  * Player character that can move around and between rooms, defeat enemies, collect coins
  */
-public class Player {
+public class Player implements Damageable, Movable {
     public Point prevPosition;
     public Point position;
     public Image currImage;
@@ -104,6 +104,10 @@ public class Player {
         if (health <= 0) {
             ShadowDungeon.changeToGameOverRoom();
         }
+    }
+
+    public double getHealth() {
+        return health;
     }
 
     public Point getPosition() {

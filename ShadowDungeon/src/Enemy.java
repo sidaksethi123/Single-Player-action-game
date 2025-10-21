@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Enemy that gets removed when the player overlaps with it
  */
-public class Enemy{
+public class Enemy implements Collidable, Damageable{
 
 
     public Point position;
@@ -30,8 +30,7 @@ public class Enemy{
 
     public void update(Player player) {
         if (hasCollidedWith(player)) {
-            dead = true;
-            active = false;
+            player.receiveDamage(0.2);
         }
     }
 
@@ -40,7 +39,6 @@ public class Enemy{
         image.draw(position.x, position.y);
     }
 
-
     public boolean hasCollidedWith(Player player) {
         return image.getBoundingBoxAt(position).intersects(player.getCurrImage().getBoundingBoxAt(player.getPosition()));
     }
@@ -48,6 +46,14 @@ public class Enemy{
     public boolean bulletcollision(Projectile projectile) {
         return image.getBoundingBoxAt(position).intersects
                 (bulletImage.getBoundingBoxAt(projectile.position));
+    }
+
+    public void receiveDamage(double damage){
+        this.health -= damage;
+    }
+
+    public double getHealth() {
+        return health;
     }
 
     public boolean isDead() {

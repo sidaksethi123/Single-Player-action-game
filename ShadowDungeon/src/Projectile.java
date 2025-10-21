@@ -3,7 +3,7 @@ import bagel.util.Point;
 import bagel.*;
 import bagel.util.Rectangle;
 
-public class Projectile {
+public class Projectile implements Movable{
 
     public final double damage;
     public final double speed;

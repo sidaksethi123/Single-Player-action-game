@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Enemy that gets removed when the player overlaps with it
  */
-public class KeyBulletKin extends Enemy{
+public class KeyBulletKin extends Enemy implements Movable{
 
 
     private static final Image KeyBKimage= new Image("res/key_bullet_kin.png");
@@ -24,8 +24,7 @@ public class KeyBulletKin extends Enemy{
     public void update(Player player) {
 
         if (hasCollidedWith(player)) {
-            dead = true;
-            active = false;
+            player.receiveDamage(0.2);
         }
 
          if (active){

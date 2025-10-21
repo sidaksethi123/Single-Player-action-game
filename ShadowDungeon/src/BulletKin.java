@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Enemy that gets removed when the player overlaps with it
  */
-public class BulletKin extends Enemy{
+public class BulletKin extends Enemy implements Shootable{
 
     private static final Image BKimage= new Image("res/bullet_kin.png");
 
@@ -25,22 +25,22 @@ public class BulletKin extends Enemy{
 
     public void update(Player player) {
         if (hasCollidedWith(player)) {
-            dead = true;
-            active = false;
+            player.receiveDamage(0.2);
         }
 
-        if (active){
-            for(Fireball ball: fireBalls){
-                ball.update(player);
-            }
-            if (elapsedCounter%FireBallFreq == 0){
-                fireBalls.add(new Fireball(position, ShadowDungeon.playerPos()));
-            }
-
-
+        if (active) {
+            shootProjectile(player);
+            elapsedCounter += 1;
         }
-        elapsedCounter += 1;
-
     }
 
+    public void shootProjectile(Player player){
+        for(Fireball ball: fireBalls){
+            ball.update(player);
+        }
+        if (elapsedCounter%FireBallFreq == 0){
+            fireBalls.add(new Fireball(position, ShadowDungeon.playerPos()));
+        }
+
+    }
 }
